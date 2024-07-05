@@ -9,7 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
-import theme from "./theme";
+import theme from "./app/MaterialTheme";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -17,10 +17,10 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}></ThemeProvider>
-      <CssBaseline />
-
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );
