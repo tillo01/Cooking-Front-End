@@ -5,8 +5,10 @@ import "../css/app.css";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { RippleBadge } from "./MaterialTheme/styled";
 import { Link, Route, Switch } from "react-router-dom";
-import { About } from "./screens/About";
-import { Users } from "./screens/User";
+import { HomePage } from "./screens/homePage";
+import { ProductsPage } from "./screens/ProductsPage";
+import { OrdersPage } from "./screens/OrdersPage";
+import { UserPage } from "./screens/UserPage";
 
 function App() {
   return (
@@ -14,51 +16,53 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">HomePage</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/products">ProductsPage</Link>
           </li>
           <li>
-            <Link to="/users">Users</Link>
+            <Link to="/orders">OrdersPage</Link>
+          </li>
+          <li>
+            <Link to="/member-page">UserPage</Link>
           </li>
         </ul>
       </nav>
 
       <Switch>
-        <Route path="/about">
-          <About />
+        <Route path="/products">
+          <ProductsPage />
         </Route>
-        <Route path="/users">
-          <Users />
+        <Route path="/orders">
+          <OrdersPage />
+        </Route>
+        <Route path="/member-page">
+          <UserPage />
         </Route>
         <Route path="/">
-          <Home />
+          <HomePage />
         </Route>
       </Switch>
     </div>
-
-    // <Container sx={{ background: "orange" }}>
-    //   <Stack flexDirection={"column"}>
-    //     <Box sx={{ my: 4 }}>
-    //       <Typography variant="h4" component={"h4"}>
-    //         Create Raeact App on Typescript with Redux
-    //       </Typography>
-    //     </Box>
-    //     <Box>
-    //       <RippleBadge badgeContent={4}>
-    //         <Button variant="contained" color="secondary">
-    //           Contained
-    //         </Button>
-    //       </RippleBadge>
-    //     </Box>
-    //   </Stack>
-    // </Container>
   );
 }
 
-function Home() {
-  return <Container>Home</Container>;
-}
-
 export default App;
+
+// <Container sx={{ background: "orange" }}>
+//   <Stack flexDirection={"column"}>
+//     <Box sx={{ my: 4 }}>
+//       <Typography variant="h4" component={"h4"}>
+//         Create Raeact App on Typescript with Redux
+//       </Typography>
+//     </Box>
+//     <Box>
+//       <RippleBadge badgeContent={4}>
+//         <Button variant="contained" color="secondary">
+//           Contained
+//         </Button>
+//       </RippleBadge>
+//     </Box>
+//   </Stack>
+// </Container>
