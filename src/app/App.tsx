@@ -2,34 +2,29 @@
 
 import React from "react";
 import "../css/app.css";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { RippleBadge } from "./MaterialTheme/styled";
-import { Link, Route, Switch } from "react-router-dom";
+import { Box, Button, ButtonGroup, Container, Stack, Typography } from "@mui/material";
+import { RippleBadge } from "./components/MaterialTheme/styled";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
 import { HomePage } from "./screens/homePage";
 import { ProductsPage } from "./screens/ProductsPage";
 import { OrdersPage } from "./screens/OrdersPage";
 import { UserPage } from "./screens/UserPage";
+import { orange } from "@mui/material/colors";
+import { HomeNavbar } from "./components/headers/HomeNavbar";
+import { OtherNavbar } from "./components/headers/OtherNavbar";
+import { Footer } from "./components/footer";
 
 function App() {
-  return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">HomePage</Link>
-          </li>
-          <li>
-            <Link to="/products">ProductsPage</Link>
-          </li>
-          <li>
-            <Link to="/orders">OrdersPage</Link>
-          </li>
-          <li>
-            <Link to="/member-page">UserPage</Link>
-          </li>
-        </ul>
-      </nav>
+  const location  = useLocation();
+  console.log(location);
+  
 
+  return (
+
+    
+   <>
+
+   {location.pathname === "/" ? <HomeNavbar/> : <OtherNavbar/> }
       <Switch>
         <Route path="/products">
           <ProductsPage />
@@ -44,7 +39,8 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
-    </div>
+      <Footer/>
+      </>
   );
 }
 
