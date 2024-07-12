@@ -16,7 +16,6 @@ import  Footer  from "./components/footer";
 import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
-
 import { HelpPage } from "./screens/HelpPage";
 
 function App() {
