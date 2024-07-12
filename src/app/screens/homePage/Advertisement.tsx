@@ -1,9 +1,11 @@
+/** @format */
+
 import React from "react";
 
-export default function Advertisiment(){
-return(
+export default function Advertisiment() {
+  return (
     <div>
-        <div>NewDishes</div>
+      <div>NewDishes</div>
     </div>
-);
+  );
 }

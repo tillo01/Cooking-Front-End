@@ -6,16 +6,17 @@ import NewDishes from "./NewDishesh";
 import Advertisiment from "./Advertisement";
 import ActiveUsers from "./ActiveUsers";
 import Events from "./Events";
+import "../../../css/home.css";
 
 export default function HomePage() {
-  return <div className={"homepage"}>
-    <Statistics/>
-    <PopularDishesh/>
-    <NewDishes/>
-    <Advertisiment/>
-    <ActiveUsers/>
-    <Events/>
-    
-
-  </div>;
+  return (
+    <div className={"homepage"}>
+      <Statistics />
+      <PopularDishesh />
+      <NewDishes />
+      <Advertisiment />
+      <ActiveUsers />
+      <Events />
+    </div>
+  );
 }
