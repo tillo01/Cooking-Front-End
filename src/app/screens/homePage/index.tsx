@@ -1,7 +1,7 @@
 /** @format */
 import React from "react";
 import Statistics from "./Statistics";
-import PopularDishesh from "./Popular";
+import PopularDishesh from "./PopularDishes";
 import NewDishes from "./NewDishesh";
 import Advertisiment from "./Advertisement";
 import ActiveUsers from "./ActiveUsers";
