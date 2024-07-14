@@ -17,6 +17,7 @@ const list = [
   { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
   { productName: "Kebab", imagePath: "/img/kebab.webp" },
   { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
+  
 ];
 
 export default function PopularDishesh() {
@@ -24,7 +25,10 @@ export default function PopularDishesh() {
     <div className="popular-dishes-frame">
       <Container>
         <Stack className="popular-section">
-          <Box className="category-title">Popular Dishes</Box>
+
+          {/* this is the category title */}
+          <Box className="category-title">Popular Dishes</Box>  
+          
           <Stack className="cards-frame">
             {list.length !== 0 ? (
             list.map((ele,index)=>{

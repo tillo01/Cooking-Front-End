@@ -21,7 +21,7 @@ export default function NewDishes(){
         <div className="new-product-frame">
             <Container>
                 <Stack className="main">
-                    <Box className="category-name">
+                    <Box className="category-title">
                         Fresh Menu
                     </Box>
                     <Stack className="cards-frame">
