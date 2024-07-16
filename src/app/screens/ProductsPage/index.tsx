@@ -2,18 +2,19 @@
 import React from "react";
 import { Container } from "@mui/material";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import ChoosenProduct from "./ChoosenProduct";
+import ChosenProduct from "./ChosenProduct";
 import Products from "./Products";
+import "../../../css/products.css";
 
 export default function ProductsPage() {
   const products = useRouteMatch();
   console.log("products,", products);
 
   return (
-    <div className="produucts-page">
+    <div className="products-page">
       <Switch>
         <Route path={`${products.path}/:productId`}>
-          <ChoosenProduct />
+          <ChosenProduct />
         </Route>
         <Route path={`${products.path}`}>
           <Products />
