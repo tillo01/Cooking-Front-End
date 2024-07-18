@@ -17,7 +17,6 @@ const list = [
   { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
   { productName: "Kebab", imagePath: "/img/kebab.webp" },
   { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-  
 ];
 
 export default function PopularDishesh() {
@@ -25,45 +24,42 @@ export default function PopularDishesh() {
     <div className="popular-dishes-frame">
       <Container>
         <Stack className="popular-section">
-
           {/* this is the category title */}
-          <Box className="category-title">Popular Dishes</Box>  
-          
+          <Box className="category-title">Popular Dishes</Box>
+
           <Stack className="cards-frame">
             {list.length !== 0 ? (
-            list.map((ele,index)=>{
-                return(
-                 <CssVarsProvider key={index}>
-                  <Card className="card">
+              list.map((ele, index) => {
+                return (
+                  <CssVarsProvider key={index}>
+                    <Card className="card">
                       <CardCover>
-                        <img src={ele.imagePath} alt=""/>
+                        <img src={ele.imagePath} alt="" />
                       </CardCover>
-                      <CardCover className="card-cover"/>
-                      <CardContent sx={{justifyContent: "flex-end"}}>
+                      <CardCover className="card-cover" />
+                      <CardContent sx={{ justifyContent: "flex-end" }}>
                         <Stack flexDirection={"row"} justifyContent={"space-between"}>
-                          <Typography level="h2" font-size="lg" textColor="#fff" mb={1}>
+                          <Typography font-size="16px" textColor="#fff" mb={1}>
                             {ele.productName}
                           </Typography>
-                          <Typography sx={{fontWeight:"md", color:"neutral.300", alignItems:"center", display:"flex",}}>
+                          <Typography sx={{ fontWeight: "sm", color: "neutral.300", alignItems: "center", display: "flex" }}>
                             20
-                          <VisibilityIcon sx={{fontSize:25, marginLeft:"5px"}}/>
+                            <VisibilityIcon sx={{ fontSize: 25, marginLeft: "5px" }} />
                           </Typography>
                         </Stack>
                       </CardContent>
-                      <CardOverflow sx={{display:"flex", gap:1.5, py:1.5, px:"var(--Card-padding)", borderTop:"1px solid", height:"60px",}}>
-                        <Typography startDecorator={<DescriptionOutlinedIcon/>} textColor="neutral.300">
-                        This is delicious meal
+                      <CardOverflow sx={{ display: "flex", gap: 1.5, py: 1.5, px: "var(--Card-padding)", borderTop: "1px solid", height: "60px" }}>
+                        <Typography startDecorator={<DescriptionOutlinedIcon />} textColor="neutral.300">
+                          This is delicious meal
                         </Typography>
                       </CardOverflow>
-                  </Card>
-                 </CssVarsProvider>
+                    </Card>
+                  </CssVarsProvider>
                 );
-
-            })
-          ):(
-            <Box className="no-data">Popular products are not available !</Box>
-          )
-          }
+              })
+            ) : (
+              <Box className="no-data">Popular products are not available !</Box>
+            )}
           </Stack>
         </Stack>
       </Container>

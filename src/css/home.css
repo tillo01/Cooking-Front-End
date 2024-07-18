@@ -1,4 +1,7 @@
 /** @format */
+* {
+  box-sizing: border-box;
+}
 
 .homepage {
   width: 100%;
@@ -69,22 +72,23 @@
   line-height: 42px;
   display: flex;
   align-items: center;
-  letter-spacing: 0.04em;
   color: #000000;
 }
 
 .homepage .popular-dishes-frame .popular-section .cards-frame {
-  width: 100%;
+  width: 1300px;
   margin-top: 43px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  gap: 10px;
 }
 
 .homepage .popular-dishes-frame .cards-frame .card {
   min-height: 430px;
   min-width: 300px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .homepage .popular-dishes-frame .cards-frame .card .card-cover {
@@ -92,7 +96,7 @@
 }
 
 .homepage .popular-dishes-frame .no-data {
-  width: 100%;
+  width: 100%px;
   height: 300px;
   display: flex;
   justify-content: center;
@@ -131,9 +135,10 @@
 }
 .homepage .new-product-frame .main .cards-frame {
   width: 100%;
-  margin: 57px 2px 2px 2px;
+  margin: 57px;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
 }
 .homepage .new-product-frame .main .card {
   height: 335px;
@@ -258,7 +263,8 @@
   margin-top: 57px;
   width: 100%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
 }
 .homepage .active-users-frame .cards-frame .card {
   border: none;
