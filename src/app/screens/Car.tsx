@@ -23,6 +23,7 @@ class Car extends Component {
   }
   componentWillUnmount() {
     // runs before components unmount
+    console.log("componentWillUnmount");
   }
   componentDidUpdate() {
     console.log("componentDidUpdate");
