@@ -17,6 +17,7 @@ import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 import HelpPage from "./screens/HelpPage";
+import Test from "./screens/Car";
 
 function App() {
   const location = useLocation();
@@ -39,7 +40,8 @@ function App() {
           <HelpPage />
         </Route>
         <Route path="/">
-          <HomePage />
+          {/* <HomePage /> */}
+          <Test />
         </Route>
       </Switch>
       <Footer />
