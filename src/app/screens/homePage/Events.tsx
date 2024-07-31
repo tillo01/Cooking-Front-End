@@ -1,3 +1,5 @@
+/** @format */
+
 import { Box, Stack } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
@@ -29,8 +31,7 @@ export default function Events() {
           autoplay={{
             delay: 2000,
             disableOnInteraction: true,
-          }}
-        >
+          }}>
           {plans.map((value, number) => {
             return (
               <SwiperSlide key={number} className={"events-info-frame"}>
@@ -68,16 +69,9 @@ export default function Events() {
           })}
         </Swiper>
         <Box className={"prev-next-frame"}>
-          <img
-            src={"/icons/arrow-right.svg"}
-            className={"swiper-button-prev"}
-          />
+          <img src={"/icons/arrow-right.svg"} className={"swiper-button-prev"} />
           <div className={"dot-frame-pagination swiper-pagination"}></div>
-          <img
-            src={"/icons/arrow-right.svg"}
-            className={"swiper-button-next"}
-            style={{ transform: "rotate(-180deg)" }}
-          />
+          <img src={"/icons/arrow-right.svg"} className={"swiper-button-next"} style={{ transform: "rotate(-180deg)" }} />
         </Box>
       </Stack>
     </div>
