@@ -7,20 +7,20 @@ import React, { useEffect, useState } from "react";
 
 export default function HomeNavbar() {
   const authMember = null;
-  const [count, setCount] = useState<number>(0);
-  const [value, setValue] = useState<boolean>(true);
+  // const [count, setCount] = useState<number>(0);
+  // const [value, setValue] = useState<boolean>(true);
 
-  useEffect(() => {
-    console.log("componentDidMount"); // DATA FETCH
-    setCount(count + 1);
-    return () => {
-      console.log("componentWillUnmount");
-    };
-  }, [value]);
+  // useEffect(() => {
+  //   console.log("componentDidMount"); // DATA FETCH
+  //   setCount(count + 1);
+  //   return () => {
+  //     console.log("componentWillUnmount");
+  //   };
+  // }, [value]);
 
-  const buttonHandler = () => {
-    setValue(!value);
-  };
+  // const buttonHandler = () => {
+  //   setValue(!value);
+  // };
   // HANDLERS
 
   return (
@@ -81,10 +81,10 @@ export default function HomeNavbar() {
           <Stack className="detail">
             <Box className="head-main-txt">World`s Most Delicous Cousine</Box>
             <Box className="wel-txt">The Choice, not just a choice</Box>
-            <Box className="service-txt">{count} hours service</Box>
+            <Box className="service-txt">24 hours service</Box>
             <Box className="sign-up">
               {!authMember ? (
-                <Button variant={"contained"} className="signup-button" onClick={buttonHandler}>
+                <Button variant={"contained"} className="signup-button">
                   SIGN UP
                 </Button>
               ) : null}
