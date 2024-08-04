@@ -15,6 +15,11 @@ import { createSelector, Dispatch } from "@reduxjs/toolkit";
 import { setProducts } from "./slice";
 import { Product } from "../../../lib/types/product";
 import { retriveProducts } from "./selector";
+import { useEffect } from "react";
+import ProductService from "../../services/ProductService";
+import { error } from "console";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
 
 const actionDispatch = (dispatch: Dispatch) => ({
    setProducts: (data: Product[]) => dispatch(setProducts(data)),
@@ -24,16 +29,23 @@ const productRetriver = createSelector(retriveProducts, (products) => ({
    products,
 }));
 
-const products = [
-   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-];
-
 export default function Products() {
+   const { setProducts } = actionDispatch(useDispatch());
+   const { products } = useSelector(productRetriver);
+
+   useEffect(() => {
+      const product = new ProductService();
+      product
+         .getProducts({
+            page: 1,
+            limit: 8,
+            order: "createdAt",
+            productCollection: ProductCollection.DISH,
+            search: "",
+         })
+         .then((data) => setProducts(data))
+         .catch((err) => console.log(err));
+   }, []);
    return (
       <div className="products">
          <Container>
@@ -137,18 +149,25 @@ export default function Products() {
 
                   <Stack className="product-wrapper">
                      {products.length !== 0 ? (
-                        products.map((product, index) => {
+                        products.map((product: Product) => {
+                           const imagePath = `${serverApi}/${product.productImages[0]}
+                           `;
+                           const sizeVolume =
+                              product.productCollection ===
+                              ProductCollection.DRINK
+                                 ? product.productVolume + "litre"
+                                 : product.productSize + " size";
                            return (
                               <Stack
-                                 key={index}
+                                 key={product._id}
                                  className="product-cards">
                                  <Stack
                                     className="product-img"
                                     sx={{
-                                       backgroundImage: `url(${product.imagePath})`,
+                                       backgroundImage: `url(${imagePath})`,
                                     }}>
                                     <div className="product-sale">
-                                       NORMAL size
+                                       {sizeVolume}
                                     </div>
 
                                     <Stack className="view-and-shop">
@@ -165,13 +184,14 @@ export default function Products() {
                                           className="view-btn"
                                           sx={{ left: "35px" }}>
                                           <Badge
-                                             badgeContent="20"
+                                             badgeContent={product.productViews}
                                              color="secondary">
                                              <RemoveRedEyeIcon
                                                 sx={{
-                                                   color: 20
-                                                      ? "white"
-                                                      : "black",
+                                                   color:
+                                                      product.productViews === 0
+                                                         ? "white"
+                                                         : "black",
                                                 }}
                                              />
                                           </Badge>
@@ -187,7 +207,7 @@ export default function Products() {
                                        className="product-description"
                                        style={{ color: "#d7b586" }}>
                                        <MonetizationOnIcon />
-                                       {12}
+                                       {product.productPrice}
                                     </div>
                                  </Box>
                               </Stack>
