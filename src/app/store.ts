@@ -6,8 +6,9 @@ import ProductsPageReducer from "./screens/productsPage/slice";
 import reduxLogger from "redux-logger";
 
 export const store = configureStore({
-   // @ts-ignore
-   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
+   middleware: (getDefaultMiddleware) =>
+      // @ts-ignore
+      getDefaultMiddleware().concat(reduxLogger),
    reducer: {
       homePage: HomePageReducer /** redux store bn boglandi**/,
       productsPage: ProductsPageReducer,
