@@ -17,11 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSelector, Dispatch } from "@reduxjs/toolkit";
 import { setChoosenProduct, setProducts, setRestaurant } from "./slice";
 import { Product } from "../../../lib/types/product";
-import {
-   retriveChoosenProduct,
-   retriveProducts,
-   retriveRestaurant,
-} from "./selector";
+import { retriveChoosenProduct, retriveRestaurant } from "./selector";
 import { useParams } from "react-router-dom";
 import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
