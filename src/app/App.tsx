@@ -13,7 +13,7 @@ import {
 import { RippleBadge } from "./components/MaterialTheme/styled";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
-import ProductsPage from "./screens/productsPage";
+import ProductsPage from "./screens/ProductsPage";
 import OrdersPage from "./screens/OrdersPage";
 import UserPage from "./screens/UserPage";
 import { orange } from "@mui/material/colors";

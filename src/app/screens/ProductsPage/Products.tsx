@@ -8,7 +8,6 @@ import Badge from "@mui/material/Badge";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { transform } from "typescript";
 
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector, Dispatch } from "@reduxjs/toolkit";
@@ -17,7 +16,6 @@ import { Product, ProductInquery } from "../../../lib/types/product";
 import { retriveProducts } from "./selector";
 import { ChangeEvent, useEffect, useState } from "react";
 import ProductService from "../../services/ProductService";
-import { error } from "console";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
