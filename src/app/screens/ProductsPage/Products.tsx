@@ -104,7 +104,7 @@ export default function Products() {
                      </Box>
                      <Box className="search-div">
                         <input
-                           type="text"
+                           type="search"
                            name="search-dishes"
                            id="search-menu"
                            placeholder="Type here"

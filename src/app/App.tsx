@@ -16,7 +16,6 @@ import HomePage from "./screens/homePage";
 import ProductsPage from "./screens/ProductsPage";
 import OrdersPage from "./screens/OrdersPage";
 import UserPage from "./screens/UserPage";
-import { orange } from "@mui/material/colors";
 import HomeNavbar from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
