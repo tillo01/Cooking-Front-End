@@ -1,6 +1,13 @@
 /** @format */
 
-import { Box, Button, Container, Pagination, Stack } from "@mui/material";
+import {
+   Box,
+   Button,
+   Container,
+   Pagination,
+   PortalProps,
+   Stack,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -19,6 +26,7 @@ import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
+import { CartItem } from "../../../lib/types/search";
 
 const actionDispatch = (dispatch: Dispatch) => ({
    setProducts: (data: Product[]) => dispatch(setProducts(data)),
@@ -28,7 +36,12 @@ const productRetriver = createSelector(retriveProducts, (products) => ({
    products,
 }));
 
-export default function Products() {
+// onAdd
+interface ProductsProps {
+   onAdd: (item: CartItem) => void;
+}
+export default function Products(props: ProductsProps) {
+   const { onAdd } = props;
    const { setProducts } = actionDispatch(useDispatch());
    const { products } = useSelector(productRetriver);
    const [productSearch, setProductSearch] = useState<ProductInquery>({
@@ -275,7 +288,18 @@ export default function Products() {
 
                                     <Stack className="view-and-shop">
                                        <Button
-                                          className="shop-btn"
+                                          className={"shop-btn"}
+                                          onClick={(e) => {
+                                             console.log("x PRESED");
+                                             onAdd({
+                                                _id: product._id,
+                                                quantity: 1,
+                                                name: product.productName,
+                                                price: product.productPrice,
+                                                image: product.productImages[0],
+                                             });
+                                             e.stopPropagation();
+                                          }}
                                           sx={{ left: "30px" }}>
                                           <img
                                              src="/icons/shopping-cart.svg"
