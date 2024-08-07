@@ -27,19 +27,42 @@ import Test from "./screens/Car";
 import { CartItem } from "../lib/types/search";
 import useBasket from "./hooks/useBasket";
 import AuthenticationModal from "./components/auth";
+import MemberService from "./services/MemberService";
+import { sweetErrorHandling, sweetTopSuccessAlert } from "../lib/sweetAlert";
+import { Messages } from "../lib/config";
+import { useGlobals } from "./hooks/useGlobals";
 
 function App() {
    const location = useLocation();
    console.log(location);
-
+   // hooks
+   const { setAuthMember } = useGlobals();
    const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
    const [signupOpen, setSignupOpen] = useState<boolean>(false);
    const [loginOpen, setloginOpen] = useState<boolean>(false);
+   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
    // HNADLERS
 
    const handleSignupClose = () => setSignupOpen(false);
    const handleLoginClose = () => setloginOpen(false);
+
+   const handleLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(e.currentTarget);
+   };
+   const handleCloseLogout = () => setAnchorEl(null);
+   const handleLogoutRequest = async () => {
+      try {
+         const member = new MemberService();
+         await member.logout();
+         await sweetTopSuccessAlert("success", 700);
+         setAuthMember(null);
+      } catch (err) {
+         console.log(err);
+         sweetErrorHandling(Messages.error1);
+      }
+   };
+   // HNADLERS
 
    return (
       <>
@@ -50,6 +73,14 @@ function App() {
                onRemove={onRemove}
                onDelete={onDelete}
                onDeleteAll={onDeleteAll}
+               setSignupOpen={setSignupOpen}
+               setloginOpen={setloginOpen}
+               // anchor
+               anchorEl={anchorEl}
+               handleLogoutClick={handleLogoutClick}
+               handleCloseLogout={handleCloseLogout}
+               handleLogoutRequest={handleLogoutRequest}
+               // anchor
             />
          ) : (
             <OtherNavbar
@@ -58,6 +89,14 @@ function App() {
                onRemove={onRemove}
                onDelete={onDelete}
                onDeleteAll={onDeleteAll}
+               setSignupOpen={setSignupOpen}
+               setloginOpen={setloginOpen}
+               // anchor
+               anchorEl={anchorEl}
+               handleLogoutClick={handleLogoutClick}
+               handleCloseLogout={handleCloseLogout}
+               handleLogoutRequest={handleLogoutRequest}
+               // anchor
             />
          )}
          <Switch>
@@ -89,3 +128,6 @@ function App() {
 }
 
 export default App;
+function setAuthMember(arg0: null) {
+   throw new Error("Function not implemented.");
+}

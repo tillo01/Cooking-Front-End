@@ -4,6 +4,8 @@ import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 import { CartItem } from "../../../lib/types/search";
+import { useGlobals } from "../../hooks/useGlobals";
+import { serverApi } from "../../../lib/config";
 
 interface OtherNavbarProps {
    cartItems: CartItem[];
@@ -11,11 +13,33 @@ interface OtherNavbarProps {
    onRemove: (item: CartItem) => void;
    onDelete: (item: CartItem) => void;
    onDeleteAll: () => void;
+   setSignupOpen: (isOpen: boolean) => void;
+   setloginOpen: (isOpen: boolean) => void;
+   // anchor and logout
+   handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
+   anchorEl: HTMLElement | null;
+   handleCloseLogout: () => void;
+   handleLogoutRequest: () => void;
+   // anchor and logout
 }
 
 export default function OtherNavbar(props: OtherNavbarProps) {
-   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-   const authMember = null;
+   const {
+      cartItems,
+      onAdd,
+      onRemove,
+      onDelete,
+      onDeleteAll,
+      setSignupOpen,
+      setloginOpen,
+      // handclik
+      handleLogoutClick,
+      anchorEl,
+      handleCloseLogout,
+      handleLogoutRequest,
+   } = props;
+   const { authMember } = useGlobals();
+
    return (
       <div className="other-navbar">
          <Container className="navbar-container">
@@ -76,6 +100,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                   {!authMember ? (
                      <Box>
                         <Button
+                           onClick={() => setloginOpen(true)}
                            variant="contained"
                            className="login-button">
                            Login
@@ -84,8 +109,14 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                   ) : (
                      <img
                         className="user-avatar"
-                        src="/icons/default-user.svg"
-                        aria-haspopup={true}
+                        src={
+                           authMember?.memberImage
+                              ? `${serverApi}/${authMember?.memberImage}`
+                              : "/icons/default-user.svg"
+                        }
+                        aria-haspopup={"true"}
+                        onClick={handleLogoutClick}
+                        // img
                      />
                   )}
                </Stack>

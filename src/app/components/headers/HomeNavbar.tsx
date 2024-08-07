@@ -1,10 +1,21 @@
 /** @format */
 
-import { Box, Button, Container, Stack } from "@mui/material";
+import {
+   Box,
+   Button,
+   Container,
+   ListItemIcon,
+   Menu,
+   MenuItem,
+   Stack,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 import React, { useEffect, useState } from "react";
 import { CartItem } from "../../../lib/types/search";
+import { Logout } from "@mui/icons-material";
+import { serverApi } from "../../../lib/config";
+import { useGlobals } from "../../hooks/useGlobals";
 
 interface HomeNavbarProps {
    cartItems: CartItem[];
@@ -12,26 +23,33 @@ interface HomeNavbarProps {
    onRemove: (item: CartItem) => void;
    onDelete: (item: CartItem) => void;
    onDeleteAll: () => void;
+   setSignupOpen: (isOpen: boolean) => void;
+   setloginOpen: (isOpen: boolean) => void;
+   // anchor
+
+   handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
+   anchorEl: HTMLElement | null;
+   handleCloseLogout: () => void;
+   handleLogoutRequest: () => void;
 }
 
 export default function HomeNavbar(props: HomeNavbarProps) {
-   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-   const authMember = null;
-   // const [count, setCount] = useState<number>(0);
-   // const [value, setValue] = useState<boolean>(true);
-
-   // useEffect(() => {
-   //   console.log("componentDidMount"); // DATA FETCH
-   //   setCount(count + 1);
-   //   return () => {
-   //     console.log("componentWillUnmount");
-   //   };
-   // }, [value]);
-
-   // const buttonHandler = () => {
-   //   setValue(!value);
-   // };
-   // HANDLERS
+   const {
+      cartItems,
+      onAdd,
+      onRemove,
+      onDelete,
+      onDeleteAll,
+      setSignupOpen,
+      setloginOpen,
+      // anchor
+      handleLogoutClick,
+      anchorEl,
+      handleCloseLogout,
+      handleLogoutRequest,
+   } = props;
+   // useGlobal
+   const { authMember } = useGlobals();
 
    return (
       <div className="home-navbar">
@@ -95,18 +113,72 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   {!authMember ? (
                      <Box>
                         <Button
+                           onClick={() => setloginOpen(true)}
                            variant="contained"
                            className="login-button">
                            Login
                         </Button>
                      </Box>
                   ) : (
+                     // img
                      <img
                         className="user-avatar"
-                        src="/icons/default-user.svg"
-                        aria-haspopup={true}
+                        src={
+                           authMember?.memberImage
+                              ? `${serverApi}/${authMember?.memberImage}`
+                              : "/icons/default-user.svg"
+                        }
+                        aria-haspopup={"true"}
+                        onClick={handleLogoutClick}
+                        // img
                      />
                   )}
+                  {/* menu */}
+                  <Menu
+                     anchorEl={anchorEl}
+                     id="account-menu"
+                     open={Boolean(anchorEl)}
+                     onClose={handleCloseLogout}
+                     onClick={handleCloseLogout}
+                     PaperProps={{
+                        elevation: 0,
+                        sx: {
+                           overflow: "visible",
+                           filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                           mt: 1.5,
+                           "& .MuiAvatar-root": {
+                              width: 32,
+                              height: 32,
+                              ml: -0.5,
+                              mr: 1,
+                           },
+                           "&:before": {
+                              content: '""',
+                              display: "block",
+                              position: "absolute",
+                              top: 0,
+                              right: 14,
+                              width: 10,
+                              height: 10,
+                              bgcolor: "background.paper",
+                              transform: "translateY(-50%) rotate(45deg)",
+                              zIndex: 0,
+                           },
+                        },
+                     }}
+                     transformOrigin={{ horizontal: "right", vertical: "top" }}
+                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
+                     <MenuItem onClick={handleLogoutRequest}>
+                        <ListItemIcon>
+                           <Logout
+                              fontSize="small"
+                              style={{ color: "blue" }}
+                           />
+                        </ListItemIcon>
+                        Logout
+                     </MenuItem>
+                  </Menu>
+                  {/* menu */}
                </Stack>
             </Stack>
 
@@ -120,6 +192,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   <Box className="sign-up">
                      {!authMember ? (
                         <Button
+                           onClick={() => setSignupOpen(true)}
                            variant={"contained"}
                            className="signup-button">
                            SIGN UP

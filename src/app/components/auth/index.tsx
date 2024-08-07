@@ -8,6 +8,12 @@ import Fade from "@material-ui/core/Fade";
 import { Fab, Stack, TextField } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { LoginInput, MemberInput } from "../../../lib/types/member";
+import { Messages } from "../../../lib/config";
+import MemberService from "../../services/MemberService";
+import { T } from "../../../lib/types/common";
+import { useGlobals } from "../../hooks/useGlobals";
 
 const useStyles = makeStyles((theme) => ({
    modal: {
@@ -42,9 +48,81 @@ interface AuthenticationModalProps {
 export default function AuthenticationModal(props: AuthenticationModalProps) {
    const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
    const classes = useStyles();
-
+   // nicks
+   const [memberNick, setMemberNick] = useState<string>("");
+   const [memberPhone, setmemberPhone] = useState<string>("");
+   const [memberPassword, setmemberPassword] = useState<string>("");
+   const { setAuthMember } = useGlobals();
    /** HANDLERS **/
+   const handleUsername = (e: T) => {
+      console.log(e.target.value);
+      setMemberNick(e.target.value);
+   };
 
+   const handlePhone = (e: T) => {
+      setmemberPhone(e.target.value);
+   };
+
+   const handlePassword = (e: T) => {
+      setmemberPassword(e.target.value);
+   };
+
+   const handlePasswordKeyDown = (e: T) => {
+      if (e.key === "Enter" && signupOpen) {
+         handleSignupRequest().then();
+      } else if (e.key === "Enter" && loginOpen) {
+         handleSignupRequest().then();
+      }
+   };
+
+   const handleSignupRequest = async () => {
+      try {
+         console.log(memberNick, memberPassword, memberPhone);
+         const isFulfill =
+            memberNick !== "" && memberPhone !== "" && memberPassword !== "";
+         if (!isFulfill) throw new Error(Messages.error3);
+
+         const signupInput: MemberInput = {
+            memberNick: memberNick,
+            memberPhone: memberPhone,
+            memberPassword: memberPassword,
+         };
+
+         const member = new MemberService();
+
+         const result = await member.signup(signupInput);
+
+         // Saving authenticated user
+         setAuthMember(result);
+         handleSignupClose();
+      } catch (err) {
+         console.log(err);
+         sweetErrorHandling(err).then();
+      }
+   };
+
+   const handleLoginRequest = async () => {
+      try {
+         const isFulfill = memberNick !== "" && memberPassword !== "";
+         if (!isFulfill) throw new Error(Messages.error3);
+
+         const loginInput: LoginInput = {
+            memberNick: memberNick,
+            memberPassword: memberPassword,
+         };
+
+         const member = new MemberService();
+
+         const result = await member.login(loginInput);
+         // Saving authenticated user
+         setAuthMember(result);
+         handleLoginClose();
+      } catch (err) {
+         handleLoginClose();
+         sweetErrorHandling(err).then();
+      }
+   };
+   // handlers
    return (
       <div>
          <Modal
