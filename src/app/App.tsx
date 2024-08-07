@@ -26,12 +26,20 @@ import HelpPage from "./screens/HelpPage";
 import Test from "./screens/Car";
 import { CartItem } from "../lib/types/search";
 import useBasket from "./hooks/useBasket";
+import AuthenticationModal from "./components/auth";
 
 function App() {
    const location = useLocation();
    console.log(location);
 
    const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
+   const [signupOpen, setSignupOpen] = useState<boolean>(false);
+   const [loginOpen, setloginOpen] = useState<boolean>(false);
+
+   // HNADLERS
+
+   const handleSignupClose = () => setSignupOpen(false);
+   const handleLoginClose = () => setloginOpen(false);
 
    return (
       <>
@@ -70,6 +78,12 @@ function App() {
             </Route>
          </Switch>
          <Footer />
+         <AuthenticationModal
+            signupOpen={signupOpen}
+            loginOpen={loginOpen}
+            handleLoginClose={handleLoginClose}
+            handleSignupClose={handleSignupClose}
+         />
       </>
    );
 }
