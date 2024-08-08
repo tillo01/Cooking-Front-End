@@ -61,10 +61,12 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
    const handlePhone = (e: T) => {
       setmemberPhone(e.target.value);
+      console.log(e.target.value);
    };
 
    const handlePassword = (e: T) => {
       setmemberPassword(e.target.value);
+      console.log(e.target.value);
    };
 
    const handlePasswordKeyDown = (e: T) => {
@@ -152,22 +154,27 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                         id="outlined-basic"
                         label="username"
                         variant="outlined"
+                        onChange={handleUsername}
                      />
                      <TextField
                         sx={{ my: "17px" }}
                         id="outlined-basic"
                         label="phone number"
                         variant="outlined"
+                        onChange={handlePhone}
                      />
                      <TextField
                         id="outlined-basic"
                         label="password"
                         variant="outlined"
+                        onChange={handlePassword}
+                        onKeyDown={handlePasswordKeyDown}
                      />
                      <Fab
                         sx={{ marginTop: "30px", width: "120px" }}
                         variant="extended"
-                        color="primary">
+                        color="primary"
+                        onClick={handleSignupRequest}>
                         <LoginIcon sx={{ mr: 1 }} />
                         Signup
                      </Fab>
@@ -207,6 +214,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                         id="outlined-basic"
                         label="username"
                         variant="outlined"
+                        onChange={handleUsername}
                         sx={{ my: "10px" }}
                      />
                      <TextField
@@ -214,11 +222,13 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                         label={"password"}
                         variant={"outlined"}
                         type={"password"}
+                        onChange={handlePassword}
                      />
                      <Fab
                         sx={{ marginTop: "27px", width: "120px" }}
                         variant={"extended"}
-                        color={"primary"}>
+                        color={"primary"}
+                        onClick={handleLoginRequest}>
                         <LoginIcon sx={{ mr: 1 }} />
                         Login
                      </Fab>
