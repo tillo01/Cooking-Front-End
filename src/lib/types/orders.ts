@@ -30,7 +30,7 @@ export interface Order {
  from aggregation
  */
    orderItems: OrderItem[];
-   productDate: Product[];
+   productData: Product[];
 }
 
 export interface OrderInquiry {

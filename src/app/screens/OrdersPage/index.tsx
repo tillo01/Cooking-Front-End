@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, useEffect } from "react";
 import { Container, Stack, Box, colors } from "@mui/material";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
@@ -11,9 +11,11 @@ import TabContext from "@mui/lab/TabContext";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../../../css/order.css";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
-import { Order } from "../../../lib/types/orders";
+import { Order, OrderInquiry } from "../../../lib/types/orders";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import OrderService from "../../services/OrderService";
 
 const actionDispatch = (dispatch: Dispatch) => ({
    setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
@@ -24,7 +26,32 @@ const actionDispatch = (dispatch: Dispatch) => ({
 export default function OrdersPage() {
    const { setPausedOrders, setProcessOrders, setFinishedOrders } =
       actionDispatch(useDispatch());
+
    const [value, setValue] = useState("1");
+   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+      page: 1,
+      limit: 5,
+      orderStatus: OrderStatus.PAUSE,
+   });
+
+   useEffect(() => {
+      const order = new OrderService();
+
+      order
+         .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PAUSE })
+         .then((data) => setPausedOrders(data))
+         .catch((err) => console.log(err));
+
+      order
+         .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
+         .then((data) => setProcessOrders(data))
+         .catch((err) => console.log(err));
+
+      order
+         .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
+         .then((data) => setFinishedOrders(data))
+         .catch((err) => console.log(err));
+   }, [orderInquiry]);
 
    const handleChange = (e: SyntheticEvent, newValue: string) => {
       setValue(newValue);

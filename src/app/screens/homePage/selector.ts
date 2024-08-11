@@ -2,8 +2,6 @@
 
 import { createSelector } from "reselect";
 import { AppRootState } from "../../../lib/types/screen";
-import { stat } from "fs/promises";
-import HomePage from ".";
 
 const selectHomePage = (state: AppRootState) => state.homePage;
 
