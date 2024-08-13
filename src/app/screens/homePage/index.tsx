@@ -31,7 +31,7 @@ export default function HomePage() {
    useEffect(() => {
       // Backend server data request => Data
 
-      const product = new ProductService(); // Object created
+      const product = new ProductService(); // Object created from class
 
       product
          .getProducts({

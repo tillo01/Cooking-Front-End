@@ -18,9 +18,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrevialTopUsers } from "./selector";
-import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
-import PopularDishesh from "./PopularDishes";
 import { Member } from "../../../lib/types/member";
 
 const TopUsersRetriver = createSelector(retrevialTopUsers, (topUsers) => ({

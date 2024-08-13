@@ -46,21 +46,25 @@ interface AuthenticationModalProps {
 }
 
 export default function AuthenticationModal(props: AuthenticationModalProps) {
+   // Props
    const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
    const classes = useStyles();
-   // nicks
+   /** Input Coming **/
    const [memberNick, setMemberNick] = useState<string>("");
-   const [memberPhone, setmemberPhone] = useState<string>("");
+   const [memberPhone, setMemberPhone] = useState<string>("");
    const [memberPassword, setmemberPassword] = useState<string>("");
+
    const { setAuthMember } = useGlobals();
+
    /** HANDLERS **/
+
    const handleUsername = (e: T) => {
-      console.log(e.target.value);
       setMemberNick(e.target.value);
+      console.log(e.target.value);
    };
 
    const handlePhone = (e: T) => {
-      setmemberPhone(e.target.value);
+      setMemberPhone(e.target.value);
       console.log(e.target.value);
    };
 
@@ -73,20 +77,22 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       if (e.key === "Enter" && signupOpen) {
          handleSignupRequest().then();
       } else if (e.key === "Enter" && loginOpen) {
-         handleSignupRequest().then();
+         handleLoginRequest().then();
       }
    };
 
+   // SignUp request handler
+
    const handleSignupRequest = async () => {
       try {
-         console.log(memberNick, memberPassword, memberPhone);
          const isFulfill =
             memberNick !== "" && memberPhone !== "" && memberPassword !== "";
+
          if (!isFulfill) throw new Error(Messages.error3);
 
          const signupInput: MemberInput = {
             memberNick: memberNick,
-            memberPhone: memberPhone,
+            memberPhone: memberPassword,
             memberPassword: memberPassword,
          };
 
@@ -99,9 +105,12 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
          handleSignupClose();
       } catch (err) {
          console.log(err);
+         handleSignupClose();
          sweetErrorHandling(err).then();
       }
    };
+
+   // Login request handler
 
    const handleLoginRequest = async () => {
       try {
@@ -124,6 +133,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
          sweetErrorHandling(err).then();
       }
    };
+
    // handlers
    return (
       <div>
@@ -174,7 +184,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                         sx={{ marginTop: "30px", width: "120px" }}
                         variant="extended"
                         color="primary"
-                        onClick={handleSignupRequest}>
+                        onClick={handleSignupRequest}
+                        onKeyDown={handlePasswordKeyDown}>
                         <LoginIcon sx={{ mr: 1 }} />
                         Signup
                      </Fab>
@@ -223,6 +234,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                         variant={"outlined"}
                         type={"password"}
                         onChange={handlePassword}
+                        onKeyDown={handlePasswordKeyDown}
                      />
                      <Fab
                         sx={{ marginTop: "27px", width: "120px" }}

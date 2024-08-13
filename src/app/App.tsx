@@ -45,7 +45,9 @@ function App() {
    // HNADLERS
 
    const handleSignupClose = () => setSignupOpen(false);
-   const handleLoginClose = () => setloginOpen(false);
+   const handleLoginClose = () => {
+      setloginOpen(false);
+   };
 
    const handleLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
       setAnchorEl(e.currentTarget);
@@ -128,6 +130,3 @@ function App() {
 }
 
 export default App;
-function setAuthMember(arg0: null) {
-   throw new Error("Function not implemented.");
-}

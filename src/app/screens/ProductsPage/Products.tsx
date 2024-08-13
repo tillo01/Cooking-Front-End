@@ -28,6 +28,9 @@ import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
 import { CartItem } from "../../../lib/types/search";
 
+import { Howler, Howl } from "howler";
+import loginSound from "./sound/page-ring.mp3";
+
 const actionDispatch = (dispatch: Dispatch) => ({
    setProducts: (data: Product[]) => dispatch(setProducts(data)),
 });
@@ -75,6 +78,10 @@ export default function Products(props: ProductsProps) {
       productSearch.page = 1;
       productSearch.productCollection = collection;
       setProductSearch({ ...productSearch });
+      const sound = new Howl({
+         src: [loginSound],
+      });
+      sound.play();
    };
 
    const orderHandler = (order: string) => {
@@ -317,8 +324,8 @@ export default function Products(props: ProductsProps) {
                                                 sx={{
                                                    color:
                                                       product.productViews === 0
-                                                         ? "white"
-                                                         : "black",
+                                                         ? "gray"
+                                                         : "white",
                                                 }}
                                              />
                                           </Badge>

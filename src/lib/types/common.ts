@@ -1,5 +1,6 @@
 /** @format */
-// t interface b
+// T any type interface
+
 export interface T {
    [key: string]: any;
 }
