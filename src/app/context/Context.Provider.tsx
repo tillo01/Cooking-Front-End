@@ -1,10 +1,10 @@
 /** @format */
 
-import { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Cookies from "universal-cookie";
 import { GlobalContext } from "../hooks/useGlobals";
 import { Member } from "../../lib/types/member";
-
+// @ts-ignore
 const ContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
    const cookies = new Cookies();
    if (!cookies.get("accesToken")) localStorage.removeItem("memberData");

@@ -8,17 +8,50 @@ import moment from "moment";
 import { createSelector } from "reselect";
 import { retrieveFinishedOrders } from "./selector";
 import { useSelector } from "react-redux";
-import { Order, OrderItem } from "../../../lib/types/orders";
+import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/orders";
 import { Product } from "../../../lib/types/product";
-import { serverApi } from "../../../lib/config";
+import { Messages, serverApi } from "../../../lib/config";
+import { useGlobals } from "../../hooks/useGlobals";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import OrderService from "../../services/OrderService";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { T } from "../../../lib/types/common";
 
 const FinishedOrdersRetriver = createSelector(
    retrieveFinishedOrders,
    (finishedOrders) => ({ finishedOrders }),
 );
 
-export default function FinishedOrders() {
+interface finishedOrdersProps {
+   setValue: (input: string) => void;
+}
+
+export default function FinishedOrders(props: finishedOrdersProps) {
    const { finishedOrders } = useSelector(FinishedOrdersRetriver);
+   const { authMember, setOrderBuilder } = useGlobals();
+
+   const { setValue } = props;
+
+   const deleteOrderHandler = async (e: T) => {
+      try {
+         if (!authMember) throw new Error(Messages.error2);
+         const orderId = e.target.value;
+         const input: OrderUpdateInput = {
+            orderId: orderId,
+            orderStatus: OrderStatus.DELETE,
+         };
+         const confirmation = window.confirm("Do you want to delete order");
+         if (confirmation) {
+            const order = new OrderService();
+            await order.updateOrder(input);
+            setOrderBuilder(new Date());
+         }
+      } catch (err) {
+         console.log("Error on cancelling orders");
+         sweetErrorHandling(err).then();
+         throw err;
+      }
+   };
 
    return (
       <TabPanel value="3">
@@ -36,7 +69,7 @@ export default function FinishedOrders() {
 
                         return (
                            <Box
-                              key={order._id}
+                              key={item._id}
                               className="order-name-price">
                               <Box className="order-first-box">
                                  <img
@@ -115,6 +148,14 @@ export default function FinishedOrders() {
                            </p>
                         </Box>
                      </Box>
+                     <Button
+                        value={order._id}
+                        variant="contained"
+                        color="secondary"
+                        className="cancel-button"
+                        onClick={deleteOrderHandler}>
+                        Delete Orders History
+                     </Button>
                   </Box>
                );
             })}

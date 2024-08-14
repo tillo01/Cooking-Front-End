@@ -20,30 +20,59 @@ const PausedOrdersRetriver = createSelector(
    (pausedOrders) => ({ pausedOrders }),
 );
 
-const { authMember, setOrderBuilder } = useGlobals();
+interface PausedOrdersProps {
+   setValue: (input: string) => void;
+}
 
-const deleteOrderHandler = async (e: T) => {
-   try {
-      if (!authMember) throw new Error(Messages.error2);
-      const orderId = e.target.value;
-      const input: OrderUpdateInput = {
-         orderId: orderId,
-         orderStatus: OrderStatus.DELETE,
-      };
-      const confirmation = window.confirm("Do you want to delete order");
-      if (confirmation) {
-         const order = new OrderService();
-         setOrderBuilder(new Date());
-      }
-   } catch (err) {
-      console.log("Error on cancelling orders");
-      sweetErrorHandling(err).then();
-      throw err;
-   }
-};
-
-export default function PausedOrders() {
+export default function PausedOrders(props: PausedOrdersProps) {
+   const { authMember, setOrderBuilder } = useGlobals();
    const { pausedOrders } = useSelector(PausedOrdersRetriver);
+   const { setValue } = props;
+   const deleteOrderHandler = async (e: T) => {
+      try {
+         if (!authMember) throw new Error(Messages.error2);
+         const orderId = e.target.value;
+         const input: OrderUpdateInput = {
+            orderId: orderId,
+            orderStatus: OrderStatus.DELETE,
+         };
+         const confirmation = window.confirm("Do you want to delete order");
+         if (confirmation) {
+            const order = new OrderService();
+            await order.updateOrder(input);
+            setValue("2");
+            setOrderBuilder(new Date());
+         }
+      } catch (err) {
+         console.log("Error on cancelling orders");
+         sweetErrorHandling(err).then();
+         throw err;
+      }
+   };
+
+   const processOrderHandler = async (e: T) => {
+      try {
+         if (!authMember) throw new Error(Messages.error2);
+         const orderId = e.target.value;
+         const input: OrderUpdateInput = {
+            orderId: orderId,
+            orderStatus: OrderStatus.PROCESS,
+         };
+         const confirmation = window.confirm(
+            "Do you want to proceed with payment",
+         );
+         if (confirmation) {
+            const order = new OrderService();
+            await order.updateOrder(input);
+            setOrderBuilder(new Date());
+         }
+         setValue("2");
+      } catch (err) {
+         console.log("Error on cancelling orders");
+         sweetErrorHandling(err).then();
+         throw err;
+      }
+   };
    return (
       <TabPanel value="1">
          <Stack gap={4}>
@@ -147,6 +176,8 @@ export default function PausedOrders() {
                            Cancel
                         </Button>
                         <Button
+                           value={order._id}
+                           onClick={processOrderHandler}
                            variant="contained"
                            color="success"
                            className="pay-button">

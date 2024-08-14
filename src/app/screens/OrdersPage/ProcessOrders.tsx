@@ -8,16 +8,50 @@ import moment from "moment";
 import { createSelector } from "reselect";
 import { retrieveProcessOrders } from "./selector";
 import { useSelector } from "react-redux";
-import { Order, OrderItem } from "../../../lib/types/orders";
+import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/orders";
 import { Product } from "../../../lib/types/product";
-import { serverApi } from "../../../lib/config";
+import { Messages, serverApi } from "../../../lib/config";
+import { Key } from "@mui/icons-material";
+import { useGlobals } from "../../hooks/useGlobals";
+import OrderService from "../../services/OrderService";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { T } from "../../../lib/types/common";
 
 const pausedOrdersRetriver = createSelector(
    retrieveProcessOrders,
    (processOrders) => ({ processOrders }),
 );
-export default function ProcessOrders() {
+
+interface ProcessOrdersProps {
+   setValue: (input: string) => void;
+}
+export default function ProcessOrders(props: ProcessOrdersProps) {
    const { processOrders } = useSelector(pausedOrdersRetriver);
+   const { setValue } = props;
+   const { authMember, setOrderBuilder } = useGlobals();
+
+   const finishedOrdersHandler = async (e: T) => {
+      try {
+         if (!authMember) throw new Error(Messages.error2);
+         const orderId = e.target.value;
+         const input: OrderUpdateInput = {
+            orderId: orderId,
+            orderStatus: OrderStatus.FINISH,
+         };
+         const confirmation = window.confirm("Have you recived your order");
+         if (confirmation) {
+            const order = new OrderService();
+            await order.updateOrder(input);
+            setOrderBuilder(new Date());
+         }
+         setValue("3");
+      } catch (err) {
+         console.log("Error on cancelling orders");
+         sweetErrorHandling(err).then();
+         throw err;
+      }
+   };
 
    return (
       <TabPanel value="2">
@@ -35,7 +69,7 @@ export default function ProcessOrders() {
 
                         return (
                            <Box
-                              key={order._id}
+                              key={item._id}
                               className="order-name-price">
                               <Box className="order-first-box">
                                  <img
@@ -117,6 +151,8 @@ export default function ProcessOrders() {
                         </Box>
 
                         <Button
+                           onClick={finishedOrdersHandler}
+                           value={order._id}
                            variant="contained"
                            style={{ background: "#3A87CB", color: "#fff" }}
                            className="cancel-button">
