@@ -1,11 +1,15 @@
 /** @format */
 
-import { createContext, useContext } from "react";
+// /** @format */
+
 import { Member } from "../../lib/types/member";
+import { useContext, createContext } from "react";
 
 interface GlobalInterface {
    authMember: Member | null;
    setAuthMember: (member: Member | null) => void;
+   orderBuilder: Date;
+   setOrderBuilder: (input: Date) => void;
 }
 
 export const GlobalContext = createContext<GlobalInterface | undefined>(

@@ -31,6 +31,7 @@ import MemberService from "./services/MemberService";
 import { sweetErrorHandling, sweetTopSuccessAlert } from "../lib/sweetAlert";
 import { Messages } from "../lib/config";
 import { useGlobals } from "./hooks/useGlobals";
+import { T } from "../lib/types/common";
 
 function App() {
    const location = useLocation();
@@ -41,7 +42,6 @@ function App() {
    const [signupOpen, setSignupOpen] = useState<boolean>(false);
    const [loginOpen, setloginOpen] = useState<boolean>(false);
    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
    // HNADLERS
 
    const handleSignupClose = () => setSignupOpen(false);
@@ -52,12 +52,13 @@ function App() {
    const handleLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
       setAnchorEl(e.currentTarget);
    };
+
    const handleCloseLogout = () => setAnchorEl(null);
    const handleLogoutRequest = async () => {
       try {
          const member = new MemberService();
          await member.logout();
-         await sweetTopSuccessAlert("success", 700);
+         await sweetTopSuccessAlert("Logged Out", 700);
          setAuthMember(null);
       } catch (err) {
          console.log(err);

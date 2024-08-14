@@ -49,7 +49,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
    } = props;
    // useGlobal
    const { authMember } = useGlobals();
-
    return (
       <div className="home-navbar">
          <Container className="navbar-container">
@@ -132,7 +131,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                         // img
                      />
                   )}
-                  {/* menu */}
+                  {/* menu logout btn */}
                   <Menu
                      anchorEl={anchorEl}
                      id="account-menu"

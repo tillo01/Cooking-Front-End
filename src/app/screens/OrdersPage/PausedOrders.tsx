@@ -6,14 +6,41 @@ import { Box, Stack } from "@mui/material";
 import { createSelector } from "reselect";
 import { retrievePausedOrders } from "./selector";
 import { useSelector } from "react-redux";
-import { Order, OrderItem } from "../../../lib/types/orders";
+import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/orders";
 import { Product } from "../../../lib/types/product";
-import { serverApi } from "../../../lib/config";
+import { Messages, serverApi } from "../../../lib/config";
+import { T } from "../../../lib/types/common";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import { useGlobals } from "../../hooks/useGlobals";
+import OrderService from "../../services/OrderService";
 
 const PausedOrdersRetriver = createSelector(
    retrievePausedOrders,
    (pausedOrders) => ({ pausedOrders }),
 );
+
+const { authMember, setOrderBuilder } = useGlobals();
+
+const deleteOrderHandler = async (e: T) => {
+   try {
+      if (!authMember) throw new Error(Messages.error2);
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+         orderId: orderId,
+         orderStatus: OrderStatus.DELETE,
+      };
+      const confirmation = window.confirm("Do you want to delete order");
+      if (confirmation) {
+         const order = new OrderService();
+         setOrderBuilder(new Date());
+      }
+   } catch (err) {
+      console.log("Error on cancelling orders");
+      sweetErrorHandling(err).then();
+      throw err;
+   }
+};
 
 export default function PausedOrders() {
    const { pausedOrders } = useSelector(PausedOrdersRetriver);
@@ -112,9 +139,11 @@ export default function PausedOrders() {
                         </Box>
 
                         <Button
+                           value={order._id}
                            variant="contained"
                            color="secondary"
-                           className="cancel-button">
+                           className="cancel-button"
+                           onClick={deleteOrderHandler}>
                            Cancel
                         </Button>
                         <Button

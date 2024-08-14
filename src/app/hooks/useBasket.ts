@@ -10,6 +10,7 @@ const useBasket = () => {
    const [cartItems, setCartItems] = useState<CartItem[]>(currentCart);
 
    // HANDLERS
+
    const onAdd = (input: CartItem) => {
       const exist: any = cartItems.find(
          (item: CartItem) => item._id === input._id,

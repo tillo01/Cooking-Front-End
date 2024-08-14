@@ -8,7 +8,10 @@ import Fade from "@material-ui/core/Fade";
 import { Fab, Stack, TextField } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import {
+   sweetErrorHandling,
+   sweetTopSuccessAlert,
+} from "../../../lib/sweetAlert";
 import { LoginInput, MemberInput } from "../../../lib/types/member";
 import { Messages } from "../../../lib/config";
 import MemberService from "../../services/MemberService";
@@ -53,7 +56,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
    const [memberNick, setMemberNick] = useState<string>("");
    const [memberPhone, setMemberPhone] = useState<string>("");
    const [memberPassword, setmemberPassword] = useState<string>("");
-
    const { setAuthMember } = useGlobals();
 
    /** HANDLERS **/
@@ -100,9 +102,10 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
          const result = await member.signup(signupInput);
 
-         // Saving authenticated user
+         // Saving authenticated user cookies
          setAuthMember(result);
          handleSignupClose();
+         await sweetTopSuccessAlert("Successfully Signed Up", 1000);
       } catch (err) {
          console.log(err);
          handleSignupClose();
@@ -125,9 +128,11 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
          const member = new MemberService();
 
          const result = await member.login(loginInput);
-         // Saving authenticated user
+         // Saving authenticated user cookies
+
          setAuthMember(result);
          handleLoginClose();
+         await sweetTopSuccessAlert("Successfully Logged In", 1000);
       } catch (err) {
          handleLoginClose();
          sweetErrorHandling(err).then();
