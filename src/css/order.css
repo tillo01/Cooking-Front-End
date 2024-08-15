@@ -10,6 +10,8 @@
    display: flex;
    flex-direction: column;
    justify-content: space-between;
+   overflow-y: scroll;
+   overflow-x: hidden;
 }
 /* .order-main-box .order-box-scroll {
    display: flex;
