@@ -135,6 +135,8 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                         variant="contained"
                         onClick={(e) => {
                            console.log("x PRESED");
+                           e.stopPropagation();
+
                            onAdd({
                               _id: choosenProduct._id,
                               quantity: 1,
@@ -142,7 +144,6 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                               price: choosenProduct.productPrice,
                               image: choosenProduct.productImages[0],
                            });
-                           e.stopPropagation();
                         }}>
                         Add To Basket
                      </Button>

@@ -17,6 +17,7 @@ import { retrevialNewDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 
 // REDUX SLICE & SELECTOR
 
@@ -26,6 +27,13 @@ const NewDishesRetriver = createSelector(retrevialNewDishes, (newDishes) => ({
 export default function NewDishes() {
    const { newDishes } = useSelector(NewDishesRetriver);
    console.log("NewDishesRetriver", NewDishesRetriver);
+
+   const history = useHistory();
+
+   const chooseDishHandler = (id: string) => {
+      console.log("productId:", id);
+      history.push(`/products/${id}`);
+   };
    return (
       <div className="new-product-frame">
          <Container>
@@ -46,7 +54,8 @@ export default function NewDishes() {
                               <Card
                                  key={product._id}
                                  variant="outlined"
-                                 className="card">
+                                 className="card"
+                                 onClick={() => chooseDishHandler(product._id)}>
                                  <CardOverflow>
                                     <div className="product-sale">
                                        {sizeVolume}

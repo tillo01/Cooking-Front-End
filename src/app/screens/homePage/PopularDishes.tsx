@@ -18,6 +18,7 @@ import { retrevialPopularDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 
 // REDUX SLICE & SELECTOR
 
@@ -29,6 +30,13 @@ const PopularDishesRetriever = createSelector(
 export default function PopularDishesh() {
    const { popularDishes } = useSelector(PopularDishesRetriever);
    console.log("popularDiihses", popularDishes);
+
+   const history = useHistory();
+
+   const chooseDishHandler = (id: string) => {
+      console.log("productId:", id);
+      history.push(`/products/${id}`);
+   };
 
    return (
       <div className="popular-dishes-frame">
@@ -43,7 +51,9 @@ export default function PopularDishesh() {
                         const imagePath = `${serverApi}/${product.productImages[0]}`;
                         return (
                            <CssVarsProvider key={product._id}>
-                              <Card className="card">
+                              <Card
+                                 className="card"
+                                 onClick={() => chooseDishHandler(product._id)}>
                                  <CardCover>
                                     <img
                                        src={imagePath}
