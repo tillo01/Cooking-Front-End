@@ -20,8 +20,6 @@ class ProductService {
          console.log("getProducts", result);
          //   arraydi tawkil qilgan boladi
          return result.data;
-
-         return [];
       } catch (err) {
          console.log("Error, on getProduct", err);
          throw err;
@@ -39,7 +37,6 @@ class ProductService {
          throw err;
       }
    }
-   
 }
 
 export default ProductService;

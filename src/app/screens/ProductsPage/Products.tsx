@@ -78,6 +78,7 @@ export default function Products(props: ProductsProps) {
       productSearch.page = 1;
       productSearch.productCollection = collection;
       setProductSearch({ ...productSearch });
+
       const sound = new Howl({
          src: [loginSound],
       });
