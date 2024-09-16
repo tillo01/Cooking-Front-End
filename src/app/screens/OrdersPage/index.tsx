@@ -30,9 +30,6 @@ export default function OrdersPage() {
       actionDispatch(useDispatch());
    const { orderBuilder, authMember } = useGlobals();
    const history = useHistory();
-   if (!authMember) {
-      history.push("/");
-   }
 
    const [value, setValue] = useState("1");
    const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
@@ -63,6 +60,9 @@ export default function OrdersPage() {
    const handleChange = (e: SyntheticEvent, newValue: string) => {
       setValue(newValue);
    };
+   if (!authMember) {
+      history.push("/");
+   }
 
    return (
       <div className="order-page">

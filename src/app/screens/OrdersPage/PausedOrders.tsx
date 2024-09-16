@@ -64,13 +64,13 @@ export default function PausedOrders(props: PausedOrdersProps) {
          if (confirmation) {
             const order = new OrderService();
             await order.updateOrder(input);
+            setValue("2");
+
             setOrderBuilder(new Date());
          }
-         setValue("2");
       } catch (err) {
          console.log("Error on cancelling orders");
-         sweetErrorHandling(err).then();
-         throw err;
+         sweetErrorHandling(err);
       }
    };
    return (
@@ -179,7 +179,7 @@ export default function PausedOrders(props: PausedOrdersProps) {
                            value={order._id}
                            onClick={processOrderHandler}
                            variant="contained"
-                           color="success"
+                           color="primary"
                            className="pay-button">
                            Payment
                         </Button>

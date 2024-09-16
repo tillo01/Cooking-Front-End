@@ -65,7 +65,7 @@ export default function FinishedOrders(props: finishedOrdersProps) {
                         const product: Product = order.productData.filter(
                            (ele: Product) => item.productId === ele._id,
                         )[0];
-                        const imagePath = `${serverApi}/${product.productImages}`;
+                        const imagePath = `${serverApi}/${product.productImages[0]}`;
 
                         return (
                            <Box
