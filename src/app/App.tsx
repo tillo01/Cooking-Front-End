@@ -14,7 +14,6 @@ import { RippleBadge } from "./components/MaterialTheme/styled";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
 import ProductsPage from "./screens/ProductsPage";
-import OrdersPage from "./screens/OrdersPage";
 import UserPage from "./screens/UserPage";
 import HomeNavbar from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
@@ -23,7 +22,6 @@ import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 import HelpPage from "./screens/HelpPage";
-import Test from "./screens/Car";
 import { CartItem } from "../lib/types/search";
 import useBasket from "./hooks/useBasket";
 import AuthenticationModal from "./components/auth";
@@ -106,9 +104,7 @@ function App() {
             <Route path="/products">
                <ProductsPage onAdd={onAdd} />
             </Route>
-            <Route path="/orders">
-               <OrdersPage />
-            </Route>
+
             <Route path="/member-page">
                <UserPage />
             </Route>

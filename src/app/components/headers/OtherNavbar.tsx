@@ -10,7 +10,6 @@ import {
    Stack,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import Basket from "./Basket";
 import { CartItem } from "../../../lib/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../lib/config";
@@ -55,7 +54,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                   <NavLink to={"/"}>
                      <img
                         className="brand-logo"
-                        src="/icons/burak.svg"
+                        src="/icons/apron.svg"
                      />
                   </NavLink>
                </Box>
@@ -71,15 +70,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                         Products
                      </NavLink>
                   </Box>
-                  {authMember ? (
-                     <Box className={"hover-line"}>
-                        <NavLink
-                           to={"/orders"}
-                           activeClassName="underline">
-                           Orders
-                        </NavLink>
-                     </Box>
-                  ) : null}
+
                   {authMember ? (
                      <Box className={"hover-line"}>
                         <NavLink
@@ -97,13 +88,6 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                      </NavLink>
                   </Box>
 
-                  <Basket
-                     cartItems={cartItems}
-                     onAdd={onAdd}
-                     onRemove={onRemove}
-                     onDelete={onDelete}
-                     onDeleteAll={onDeleteAll}
-                  />
                   {!authMember ? (
                      <Box>
                         <Button

@@ -24,6 +24,8 @@ import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
 import { serverApi } from "../../../lib/config";
 import { CartItem } from "../../../lib/types/search";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import Typography from "@mui/joy/Typography";
 
 const actionDispatch = (dispatch: Dispatch) => ({
    setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
@@ -118,9 +120,10 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                   </Box>
                   <p className={"product-desc"}>
                      {choosenProduct?.productDesc
-                        ? choosenProduct?.productViews
+                        ? choosenProduct?.productDesc
                         : "No Description "}
                   </p>
+
                   <Divider
                      height="1"
                      width="100%"
@@ -128,25 +131,7 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                   />
                   <div className={"product-price"}>
                      <span>Price:</span>
-                     <span>{choosenProduct?.productPrice}</span>
-                  </div>
-                  <div className={"button-box"}>
-                     <Button
-                        variant="contained"
-                        onClick={(e) => {
-                           console.log("x PRESED");
-                           e.stopPropagation();
-
-                           onAdd({
-                              _id: choosenProduct._id,
-                              quantity: 1,
-                              name: choosenProduct.productName,
-                              price: choosenProduct.productPrice,
-                              image: choosenProduct.productImages[0],
-                           });
-                        }}>
-                        Add To Basket
-                     </Button>
+                     <span>{choosenProduct?.productPrice}$</span>
                   </div>
                </Box>
             </Stack>

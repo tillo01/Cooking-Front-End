@@ -10,7 +10,6 @@ import {
    Stack,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import Basket from "./Basket";
 import { CartItem } from "../../../lib/types/search";
 import { Logout } from "@mui/icons-material";
 import { serverApi } from "../../../lib/config";
@@ -57,7 +56,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   <NavLink to={"/"}>
                      <img
                         className="brand-logo"
-                        src="/icons/burak.svg"
+                        src="/icons/apron.svg"
                      />
                   </NavLink>
                </Box>
@@ -73,15 +72,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                         Products
                      </NavLink>
                   </Box>
-                  {authMember ? (
-                     <Box className={"hover-line"}>
-                        <NavLink
-                           to={"/orders"}
-                           activeClassName="underline">
-                           Orders
-                        </NavLink>
-                     </Box>
-                  ) : null}
+
                   {authMember ? (
                      <Box className={"hover-line"}>
                         <NavLink
@@ -100,19 +91,20 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   </Box>
 
                   {/* BASKET */}
-                  <Basket
+                  {/* <Basket
                      cartItems={cartItems}
                      onAdd={onAdd}
                      onRemove={onRemove}
                      onDelete={onDelete}
                      onDeleteAll={onDeleteAll}
-                  />
+                  /> */}
 
                   {!authMember ? (
                      <Box>
                         <Button
                            onClick={() => setloginOpen(true)}
                            variant="contained"
+                           color="warning"
                            className="login-button">
                            Login
                         </Button>
@@ -183,14 +175,15 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             <Stack className="header-frame">
                <Stack className="detail">
                   <Box className="head-main-txt">
-                     World`s Most Delicous Cousine
+                     The Art of Cooking, Beyond Just a Meal
                   </Box>
-                  <Box className="wel-txt">The Choice, not just a choice</Box>
-                  <Box className="service-txt">24 hours service</Box>
+                  <Box className="service-txt">
+                     Where Flavor Meets Passion, Anytime
+                  </Box>
                   <Box className="sign-up">
                      {!authMember ? (
                         <Button
-                           variant={"contained"}
+                           variant={"outlined"}
                            className="signup-button"
                            onClick={() => setSignupOpen(true)}>
                            SIGN UP

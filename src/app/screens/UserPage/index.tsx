@@ -81,7 +81,6 @@ export default function UserPage() {
                         {authMember?.memberDesc
                            ? authMember.memberDesc
                            : "no description"}
-                        No description
                      </p>
                   </Box>
                </Stack>

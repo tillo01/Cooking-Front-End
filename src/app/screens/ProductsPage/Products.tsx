@@ -120,7 +120,7 @@ export default function Products(props: ProductsProps) {
                         <p
                            style={{ display: "inline-block" }}
                            className="product-category-title">
-                           Burak Restaurant
+                           Cooking
                         </p>
                      </Box>
                      <Box className="search-div">
@@ -230,20 +230,6 @@ export default function Products(props: ProductsProps) {
                            variant="contained"
                            color={
                               productSearch.productCollection ===
-                              ProductCollection.DRINK
-                                 ? "primary"
-                                 : "secondary"
-                           }
-                           onClick={() =>
-                              searchCollectionHandler(ProductCollection.DRINK)
-                           }>
-                           DRINK
-                        </Button>
-                        <Button
-                           className="dish-btn"
-                           variant="contained"
-                           color={
-                              productSearch.productCollection ===
                               ProductCollection.DESSERT
                                  ? "primary"
                                  : "secondary"
@@ -252,20 +238,6 @@ export default function Products(props: ProductsProps) {
                               searchCollectionHandler(ProductCollection.DESSERT)
                            }>
                            DESERT
-                        </Button>
-                        <Button
-                           className="dish-btn"
-                           variant="contained"
-                           color={
-                              productSearch.productCollection ===
-                              ProductCollection.OTHER
-                                 ? "primary"
-                                 : "secondary"
-                           }
-                           onClick={() =>
-                              searchCollectionHandler(ProductCollection.OTHER)
-                           }>
-                           OTHER
                         </Button>
                      </Stack>
                   </Stack>
@@ -295,26 +267,6 @@ export default function Products(props: ProductsProps) {
                                     </div>
 
                                     <Stack className="view-and-shop">
-                                       <Button
-                                          className={"shop-btn"}
-                                          onClick={(e) => {
-                                             console.log("x PRESED");
-                                             onAdd({
-                                                _id: product._id,
-                                                quantity: 1,
-                                                name: product.productName,
-                                                price: product.productPrice,
-                                                image: product.productImages[0],
-                                             });
-                                             e.stopPropagation();
-                                          }}
-                                          sx={{ left: "30px" }}>
-                                          <img
-                                             src="/icons/shopping-cart.svg"
-                                             alt=""
-                                             style={{ display: "flex" }}
-                                          />
-                                       </Button>
                                        <Button
                                           className="view-btn"
                                           sx={{ left: "35px" }}>
@@ -379,44 +331,6 @@ export default function Products(props: ProductsProps) {
                </Stack>
             </Stack>
          </Container>
-
-         <div className={"brands-logo"}>
-            <Container>
-               <Stack
-                  flexDirection={"column"}
-                  alignItems={"center"}>
-                  <Stack className={"main-logo-frame"}>
-                     <p className={"brand-logo"}>Our Family Brands</p>
-                     <Stack className={"main-four"}>
-                        <Box className={"image"}>
-                           <img
-                              src="/img/gurme.webp"
-                              alt=""
-                           />
-                        </Box>
-                        <Box className={"image"}>
-                           <img
-                              src="/img/sweets.webp"
-                              alt=""
-                           />
-                        </Box>
-                        <Box className={"image"}>
-                           <img
-                              src="/img/doner.webp"
-                              alt=""
-                           />
-                        </Box>
-                        <Box className={"image"}>
-                           <img
-                              src="/img/seafood.webp"
-                              alt=""
-                           />
-                        </Box>
-                     </Stack>
-                  </Stack>
-               </Stack>
-            </Container>
-         </div>
 
          <div className={"address"}>
             <Container>

@@ -38,7 +38,7 @@ export default function NewDishes() {
       <div className="new-product-frame">
          <Container>
             <Stack className="main">
-               <Box className="category-title">Fresh Menu</Box>
+               <Box className="category-title">Popular Recipes</Box>
                <Stack className="cards-frame">
                   <CssVarsProvider>
                      {newDishes.length !== 0 ? (
@@ -72,18 +72,11 @@ export default function NewDishes() {
                                     className="product-detail">
                                     <Stack className="info">
                                        <Stack flexDirection={"row"}>
-                                          <Typography className="title">
-                                             {product.productName}
-                                          </Typography>
-                                          <Divider
-                                             width="2"
-                                             height="24"
-                                             bg="#d9d9d9"
-                                          />
                                           <Typography className="price">
                                              ${product.productPrice}
                                           </Typography>
                                        </Stack>
+
                                        <Stack>
                                           <Typography className="views">
                                              {product.productViews}
@@ -95,6 +88,11 @@ export default function NewDishes() {
                                              />
                                           </Typography>
                                        </Stack>
+                                    </Stack>
+                                    <Stack>
+                                       <Typography className="title">
+                                          {product.productName}
+                                       </Typography>
                                     </Stack>
                                  </CardOverflow>
                               </Card>
