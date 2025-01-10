@@ -14,7 +14,7 @@ services:
          - ./:/usr/src/cooking
       working_dir: /usr/src/cooking
       networks:
-         - monorepo-network
+         - client-network
 
       # FOR PRODUCTION
       command: bash -c "yarn && yarn run build && yarn run start"
