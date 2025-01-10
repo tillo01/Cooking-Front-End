@@ -1,7 +1,7 @@
 # @format
 
 services:
-   cooking:
+   burak-react:
       container_name: cooking
       restart: always
       image: node:20.10.0
@@ -11,8 +11,8 @@ services:
          - PORT=3000
 
       volumes:
-         - ./:/usr/src/cooking
-      working_dir: /usr/src/cooking
+         - ./:/usr/src/burak-react
+      working_dir: /usr/src/burak-react
       networks:
          - client-network
 
