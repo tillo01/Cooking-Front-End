@@ -13,7 +13,7 @@ services:
       networks:
          - client-network
       environment:
-         - REACT_APP_API_URL=http://cooking-api:3003
+         - REACT_APP_API_URL=http://46.202.177.170:3003
          - PORT=3000
       command: bash -c "yarn && yarn run build && yarn run start"
 
