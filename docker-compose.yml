@@ -14,7 +14,7 @@ services:
          - ./:/usr/src/burak-react
       working_dir: /usr/src/burak-react
       networks:
-         - client-network
+         - monorepo-network
 
       # FOR PRODUCTION
       command: bash -c "yarn && yarn run build && yarn run start"
